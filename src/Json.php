@@ -13,11 +13,17 @@ class Json implements Store
     protected $file;
 
     /**
+     * @var \Dflydev\DotAccessData\Data
+     */
+    protected $config;
+
+    /**
      * {@inheritdoc}
      */
     public function __construct(File $file)
     {
         $this->file = $file;
+        $this->config = new Data(json_decode($file->read(), true));
     }
 
     /**
@@ -25,9 +31,7 @@ class Json implements Store
      */
     public function get($key)
     {
-        $contents = json_decode($this->file->read(), true);
-
-        return (new Data($contents))->get($key);
+        return $this->config->get($key);
     }
 
     /**
@@ -35,7 +39,9 @@ class Json implements Store
      */
     public function set($key, $value): bool
     {
-        // TODO: Implement set() method.
+        $this->config->set($key, $value);
+
+        return $this->persist();
     }
 
     /**
@@ -43,6 +49,20 @@ class Json implements Store
      */
     public function delete($key): bool
     {
-        // TODO: Implement delete() method.
+        $this->config->remove($key);
+
+        return $this->persist();
+    }
+
+    /**
+     * @return bool
+     */
+    protected function persist(): bool
+    {
+        $values = $this->config->export();
+
+        return $this->file->update(
+            json_encode($values, JSON_FORCE_OBJECT | JSON_OBJECT_AS_ARRAY)
+        );
     }
 }
