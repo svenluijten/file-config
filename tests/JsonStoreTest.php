@@ -28,7 +28,7 @@ class JsonStoreTest extends TestCase
     }
 
     /** @test */
-    public function it_sets_a_config_value()
+    function it_sets_a_config_value()
     {
     	$this->create('set.json', '{"ping":"pong"}');
 
@@ -44,7 +44,7 @@ class JsonStoreTest extends TestCase
     }
 
     /** @test */
-    public function it_deletes_a_config_value()
+    function it_deletes_a_config_value()
     {
     	$this->create('delete.json', '{"ping","pong"}');
 
@@ -55,7 +55,7 @@ class JsonStoreTest extends TestCase
     }
 
     /** @test */
-    public function it_deletes_a_nested_value()
+    function it_deletes_a_nested_value()
     {
     	$this->create('delete-nested.json', '{"ping":{"pong":{"foo":"bar"}}}');
 
