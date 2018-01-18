@@ -8,18 +8,17 @@
 [![Build Status][ico-circleci]][link-circleci]
 [![StyleCI][ico-styleci]][link-styleci]
 
-Short description of the package. What does it do and why should people download
-it? Brag a bit but don't exaggerate. Talk about what's to come and tease small
-pieces of functionality.
-
-> :styleci
-> :hero
-
+This package provides a persistent config store as flat files with an easy
+to use and understand interface. Writing your own stores is also made simple
+due to its driver-based infrastructure.
 
 ## Index
 - [Installation](#installation)
   - [Downloading](#downloading)
 - [Usage](#usage)
+  - [Retrieving config values](#retrieving-config-values)
+  - [Setting config values](#setting-config-values)
+  - [Deleting config values](#deleting-config-values)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -34,7 +33,8 @@ $ composer require sven/file-config
 ```
 
 Or add the package to your dependencies in `composer.json` and run
-`composer update` on the command line to download the package:
+`composer update sven/file-config` on the command line to download
+the package:
 
 ```json
 {
@@ -45,12 +45,104 @@ Or add the package to your dependencies in `composer.json` and run
 ```
 
 ## Usage
-Some examples of the code. How should people use it, what options does this package
-provide? Should people be wary of some functionality?
+To get started, create a new store object with an instance of `\League\Flysystem\File`. 
+This file is where your configuration will live:
 
 ```php
-Maybe some code?
+$adapter = new \League\Flysystem\Adapter\Local(__DIR__);
+$filesystem = new \League\Flysystem\Filesystem($adapter);
+$file = new \League\Flysystem\File($filesystem, 'path/to/file.json');
+
+$config = new \Sven\FileConfig\Json($file);
 ```
+
+### Retrieving config values
+As you can see in `\Sven\FileConfig\Store`, all stores provide a `->get($key)` method.
+This method will retrieve a configuration value by its key.
+
+```json
+{
+    "database": {
+        "name": "test",
+        "host": "localhost",
+        "user": "admin",
+        "password": "root"
+    }
+}
+```
+
+```php
+$config->get('database'); 
+// ~> ['name' => 'test', 'host' => 'localhost', 'user' => 'admin', 'password' => root']
+
+$config->get('database.host'); 
+// ~> 'localhost'
+```
+
+### Setting config values
+The `\Sven\FileConfig\Store` interface also provides a `->set($key, $value)` method:
+
+```json
+{
+    "database": {}
+}
+```
+
+```php
+$config->set('database.user', 'admin');
+// ~> true (file was changed)
+
+$config->set('does.not', 'exist');
+// ~> true (file was changed)
+```
+
+```json
+{
+    "database": {
+        "user": "admin"
+    },
+    "does": {
+        "not": "exist"
+    }
+}
+```
+
+### Deleting config values
+Another method the interface provides is `->delete($key)`:
+
+```json
+{
+    "database": {
+        "user": "admin",
+        "host": "localhost"
+    },
+    "deeply": {
+        "nested": [
+            "value"
+        ]
+    }
+}
+```
+
+```php
+$config->delete('database.user');
+// ~> true (file was changed)
+
+$config->delete('deeply.nested');
+// ~> true (file was changed)
+```
+
+```json
+{
+    "database": {
+        "host": "localhost"
+    },
+    "deeply": {}
+}
+```
+
+> **NOTE:** It is up to the developer to make sure this value should immediately be
+persisted, this package is "destructive" by default.
 
 ## Contributing
 All contributions (pull requests, issues and feature requests) are
