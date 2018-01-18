@@ -1,7 +1,7 @@
 {
     "name": "sven/file-config",
-    "description": "",
-    "keywords": [],
+    "description": "Store and read configuration values using files on disk",
+    "keywords": ["config", "file", "flatfile", "configuration", "flysystem", "json"],
     "license": "MIT",
     "authors": [
         {
