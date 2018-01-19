@@ -9,8 +9,8 @@
 [![StyleCI][ico-styleci]][link-styleci]
 
 This package provides a persistent config store as flat files with an easy
-to use and understand interface. This is perfect if the config file should
-be stored in userland, or somewhere the user is allowed to edit it manually.
+to use and understand API. This is perfect if the config file should be 
+stored in userland, or somewhere the user is allowed to edit it manually.
 
 ## Index
 - [Installation](#installation)
