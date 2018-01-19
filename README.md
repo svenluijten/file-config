@@ -157,9 +157,9 @@ though. See the [contributors page](../../graphs/contributors) for all contribut
 [ico-license]: https://img.shields.io/badge/license-MIT-green.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/sven/file-config.svg?style=flat-square
 [ico-circleci]: https://img.shields.io/circleci/project/github/svenluijten/file-config.svg?style=flat-square
-[ico-styleci]: https://styleci.io/repos/:styleci/shield
+[ico-styleci]: https://styleci.io/repos/117891803/shield
 
 [link-packagist]: https://packagist.org/packages/sven/file-config
 [link-downloads]: https://packagist.org/packages/sven/file-config
 [link-circleci]: https://circleci.com/gh/svenluijten/file-config
-[link-styleci]: https://styleci.io/repos/:styleci
+[link-styleci]: https://styleci.io/repos/117891803
