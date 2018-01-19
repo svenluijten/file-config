@@ -1,4 +1,4 @@
-![file-config](:hero)
+![file-config](https://user-images.githubusercontent.com/11269635/35174536-129cc67e-fd70-11e7-8b87-d2ba8cc24ec8.jpg)
 
 # File Config
 
