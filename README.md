@@ -39,26 +39,29 @@ the package:
 ```json
 {
     "require": {
-        "sven/file-config": "^1.0"
+        "sven/file-config": "^2.0"
     }
 }
 ```
 
 ## Usage
-To get started, create a new store object with an instance of `\League\Flysystem\File`. 
+To get started, create a new store object with an instance of `\Sven\FileConfig\File`. 
 This file is where your configuration will live:
 
 ```php
-$adapter = new \League\Flysystem\Adapter\Local(__DIR__);
-$filesystem = new \League\Flysystem\Filesystem($adapter);
-$file = new \League\Flysystem\File($filesystem, 'path/to/file.json');
+use Sven\FileConfig\File;
+use Sven\FileConfig\Stores\Json;
 
-$config = new \Sven\FileConfig\Json($file);
+$file = new File('path/to/file.json');
+$config = new Json($file);
 ```
 
-### Retrieving config values
-As you can see in `\Sven\FileConfig\Store`, all stores provide a `->get($key)` method.
-This method will retrieve a configuration value by its key.
+As you can see in `\Sven\FileConfig\Stores\Store`, all stores provide `->get($key)`,
+`->set($key, $value)`, and `->delete($key)` methods. These methods allow you to interact
+with the file on disk.
+
+### Example
+Let's take a look at some examples:
 
 ```json
 {
@@ -79,15 +82,6 @@ $config->get('database.host');
 // ~> 'localhost'
 ```
 
-### Setting config values
-The `\Sven\FileConfig\Store` interface also provides a `->set($key, $value)` method:
-
-```json
-{
-    "database": {}
-}
-```
-
 ```php
 $config->set('database.user', 'admin');
 // ~> true (file was changed)
@@ -99,6 +93,7 @@ $config->set('does.not', 'exist');
 ```json
 {
     "database": {
+        ...
         "user": "admin"
     },
     "does": {
@@ -107,37 +102,21 @@ $config->set('does.not', 'exist');
 }
 ```
 
-### Deleting config values
-Another method the interface provides is `->delete($key)`:
-
-```json
-{
-    "database": {
-        "user": "admin",
-        "host": "localhost"
-    },
-    "deeply": {
-        "nested": [
-            "value"
-        ]
-    }
-}
-```
-
 ```php
 $config->delete('database.user');
 // ~> true (file was changed)
 
-$config->delete('deeply.nested');
+$config->delete('does.not');
 // ~> true (file was changed)
 ```
 
 ```json
 {
     "database": {
-        "host": "localhost"
-    },
-    "deeply": {}
+        "name": "test",
+        "host": "localhost",
+        "password": "root"
+    }
 }
 ```
 
