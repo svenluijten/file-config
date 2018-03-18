@@ -16,9 +16,7 @@ stored in userland, or somewhere the user is allowed to edit it manually.
 - [Installation](#installation)
   - [Downloading](#downloading)
 - [Usage](#usage)
-  - [Retrieving config values](#retrieving-config-values)
-  - [Setting config values](#setting-config-values)
-  - [Deleting config values](#deleting-config-values)
+  - [Examples](#examples)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -60,7 +58,7 @@ As you can see in `\Sven\FileConfig\Stores\Store`, all stores provide `->get($ke
 `->set($key, $value)`, and `->delete($key)` methods. These methods allow you to interact
 with the file on disk.
 
-### Example
+### Examples
 Let's take a look at some examples:
 
 ```json
