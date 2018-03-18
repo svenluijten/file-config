@@ -1,15 +1,15 @@
 <?php
 
-namespace Sven\FileConfig;
+namespace Sven\FileConfig\Stores;
 
-use League\Flysystem\File;
+use Sven\FileConfig\File;
 
 interface Store
 {
     /**
      * Initialize the configuration storage.
      *
-     * @param \League\Flysystem\File $file
+     * @param \Sven\FileConfig\File $file
      */
     public function __construct(File $file);
 

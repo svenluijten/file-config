@@ -1,9 +1,9 @@
 <?php
 
-namespace Sven\FileConfig;
+namespace Sven\FileConfig\Stores;
 
 use Dflydev\DotAccessData\Data;
-use League\Flysystem\File;
+use Sven\FileConfig\File;
 
 class Json implements Store
 {
@@ -23,7 +23,7 @@ class Json implements Store
     public function __construct(File $file)
     {
         $this->file = $file;
-        $this->config = new Data(json_decode($file->read(), true));
+        $this->config = new Data(json_decode($file->contents(), true));
     }
 
     /**

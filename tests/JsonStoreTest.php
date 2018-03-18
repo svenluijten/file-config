@@ -2,7 +2,7 @@
 
 namespace Sven\FileConfig\Tests;
 
-use Sven\FileConfig\Json;
+use Sven\FileConfig\Stores\Json;
 
 class JsonStoreTest extends TestCase
 {
@@ -36,11 +36,11 @@ class JsonStoreTest extends TestCase
         $config->set('ping', 'pang');
 
         $this->assertEquals('pang', $config->get('ping'));
-        $this->assertEquals('{"ping":"pang"}', $this->file('set.json')->read());
+        $this->assertEquals('{"ping":"pang"}', $this->file('set.json')->contents());
 
         $config->set('foo', 'bar');
         $this->assertEquals('bar', $config->get('foo'));
-        $this->assertEquals('{"ping":"pang","foo":"bar"}', $this->file('set.json')->read());
+        $this->assertEquals('{"ping":"pang","foo":"bar"}', $this->file('set.json')->contents());
     }
 
     /** @test */
@@ -51,7 +51,7 @@ class JsonStoreTest extends TestCase
         $config = new Json($this->file('delete.json'));
 
         $this->assertTrue($config->delete('ping'));
-        $this->assertEquals('{}', $this->file('delete.json')->read());
+        $this->assertEquals('{}', $this->file('delete.json')->contents());
     }
 
     /** @test */
@@ -62,6 +62,6 @@ class JsonStoreTest extends TestCase
         $config = new Json($this->file('delete-nested.json'));
 
         $this->assertTrue($config->delete('ping.pong'));
-        $this->assertEquals('{"ping":{}}', $this->file('delete-nested.json')->read());
+        $this->assertEquals('{"ping":{}}', $this->file('delete-nested.json')->contents());
     }
 }
