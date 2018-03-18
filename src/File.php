@@ -50,8 +50,9 @@ class File
     /**
      * @param string $root
      *
-     * @return \League\Flysystem\Filesystem
      * @throws \LogicException
+     *
+     * @return \League\Flysystem\Filesystem
      */
     protected function filesystem(string $root): Filesystem
     {
