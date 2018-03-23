@@ -8,7 +8,7 @@ use Sven\FileConfig\File;
 class Json implements Store
 {
     /**
-     * @var string
+     * @var \Sven\FileConfig\File
      */
     protected $file;
 
