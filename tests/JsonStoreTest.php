@@ -46,7 +46,7 @@ class JsonStoreTest extends TestCase
     /** @test */
     public function it_deletes_a_config_value()
     {
-        $this->create('delete.json', '{"ping","pong"}');
+        $this->create('delete.json', '{"ping":"pong"}');
 
         $config = new Json($this->file('delete.json'));
 

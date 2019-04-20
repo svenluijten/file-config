@@ -14,7 +14,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->filesystem()->createDir(self::TEMP_DIRECTORY);
     }
@@ -22,7 +22,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * {@inheritdoc}
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->filesystem()->deleteDir(self::TEMP_DIRECTORY);
     }
@@ -52,9 +52,13 @@ abstract class TestCase extends BaseTestCase
      * @param string $contents
      *
      * @return bool
+     *
+     * @throws \League\Flysystem\FileExistsException
      */
     protected function create($path, $contents = ''): bool
     {
-        return $this->filesystem()->write(self::TEMP_DIRECTORY.DIRECTORY_SEPARATOR.$path, $contents);
+        return $this->filesystem()->write(
+            self::TEMP_DIRECTORY.DIRECTORY_SEPARATOR.$path, $contents
+        );
     }
 }

@@ -17,10 +17,11 @@ interface Store
      * Retrieve the configuration value.
      *
      * @param int|string $key
+     * @param mixed      $default
      *
      * @return mixed
      */
-    public function get($key);
+    public function get($key, $default = null);
 
     /**
      * Set or update a configuration value.

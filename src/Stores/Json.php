@@ -2,7 +2,7 @@
 
 namespace Sven\FileConfig\Stores;
 
-use Dflydev\DotAccessData\Data;
+use Sven\FileConfig\Arr;
 use Sven\FileConfig\File;
 
 class Json implements Store
@@ -13,7 +13,7 @@ class Json implements Store
     protected $file;
 
     /**
-     * @var \Dflydev\DotAccessData\Data
+     * @var array
      */
     protected $config;
 
@@ -23,15 +23,15 @@ class Json implements Store
     public function __construct(File $file)
     {
         $this->file = $file;
-        $this->config = new Data(json_decode($file->contents(), true));
+        $this->config = json_decode($file->contents(), true);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function get($key)
+    public function get($key, $default = null)
     {
-        return $this->config->get($key);
+        return Arr::get($this->config, $key, $default);
     }
 
     /**
@@ -39,7 +39,7 @@ class Json implements Store
      */
     public function set($key, $value): bool
     {
-        $this->config->set($key, $value);
+        Arr::set($this->config, $key, $value);
 
         return $this->persist();
     }
@@ -49,7 +49,7 @@ class Json implements Store
      */
     public function delete($key): bool
     {
-        $this->config->remove($key);
+        Arr::forget($this->config, $key);
 
         return $this->persist();
     }
@@ -59,10 +59,8 @@ class Json implements Store
      */
     protected function persist(): bool
     {
-        $values = $this->config->export();
-
         return $this->file->update(
-            json_encode($values, JSON_FORCE_OBJECT | JSON_OBJECT_AS_ARRAY)
+            json_encode($this->config, JSON_FORCE_OBJECT | JSON_OBJECT_AS_ARRAY)
         );
     }
 }
