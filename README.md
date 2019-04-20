@@ -37,26 +37,27 @@ the package:
 ```json
 {
     "require": {
-        "sven/file-config": "^2.0"
+        "sven/file-config": "^3.0"
     }
 }
 ```
 
 ## Usage
-To get started, create a new store object with an instance of `\Sven\FileConfig\File`. 
-This file is where your configuration will live:
+To get started, create a new store object with an instance of `\Sven\FileConfig\File` (where your 
+configuration file is, and the driver you want to use (we'll use `\Sven\FileConfig\Drivers\Json` 
+in the examples).
 
 ```php
 use Sven\FileConfig\File;
-use Sven\FileConfig\Stores\Json;
+use Sven\FileConfig\Store;
+use Sven\FileConfig\Drivers\Json;
 
 $file = new File('path/to/file.json');
-$config = new Json($file);
+$config = new Store($file, new Json);
 ```
 
-As you can see in `\Sven\FileConfig\Stores\Store`, all stores provide `->get($key)`,
-`->set($key, $value)`, and `->delete($key)` methods. These methods allow you to interact
-with the file on disk.
+You can interact with your newly created `$config` object via the `get`, `set`, and `delete` 
+methods.
 
 ### Examples
 Let's take a look at some examples:
@@ -120,6 +121,18 @@ $config->delete('does.not');
 
 > **NOTE:** It is up to the developer to make sure this value should immediately be
 persisted, this package is "destructive" by default.
+
+## Writing your own driver
+You may want to use a file format for your configuration that's not (yet) included in
+this package. Thankfully, writing a driver is as straightforward as turning your file's
+contents into a PHP array.
+
+To create a driver, make a class that implements the `\Sven\FileConfig\Drivers\Driver`
+interface. After that, add 2 methods to your class: `import` and `export`. The `import`
+method will receive the contents of the file as an argument, and it's up to you to return
+a PHP arrayhere . The `export` method is the exact reverse: it receives a regular PHP array,
+and you should ensure it's turned back into your desired file format again. To see how this
+works in more detail, take a look at [the `json` driver](src/Drivers/Json.php). 
 
 ## Contributing
 All contributions (pull requests, issues and feature requests) are
