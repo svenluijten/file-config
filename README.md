@@ -102,14 +102,15 @@ $config->get('database.does_not_exist', 'default');
 #### Setting a value in the file
 To add or change a value in the configuration file, you may use the `set` method. Note that
 you have to call the `persist` method to write the changes you made to the file. You may also
-use the `refresh` method to re-read the file into memory.
+use the `fresh` method to retrieve a "fresh" instance of the `Store`, where the values will be
+read from the file again.
 
 ```php
 $config->set('database.user', 'new-username');
 $config->persist();
 
-$config->refresh();
-$config->get('database.user');
+$freshConfig = $config->fresh();
+$freshConfig->get('database.user');
 // ~> 'new-username'
 ```
 

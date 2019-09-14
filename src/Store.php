@@ -47,6 +47,11 @@ class Store
         Arr::forget($this->config, $key);
     }
 
+    public function fresh(): Store
+    {
+        return new self($this->file, $this->driver);
+    }
+
     public function persist(): bool
     {
         return $this->file->update(

@@ -61,4 +61,23 @@ class StoreTest extends TestCase
 
         $this->assertStringNotContainsString('abc', $contents());
     }
+
+    /** @test */
+    public function it_can_get_a_fresh_instance_of_the_configuration_object(): void
+    {
+        $this->create('test.json', '{"foo":"bar","abc":"def"}');
+
+        $file = new File(__DIR__.'/'.self::TEMP_DIRECTORY.'/test.json');
+        $store = new Store($file, new Json());
+
+        $store->set('foo', 'something else');
+        $store->delete('abc');
+
+        $newStore = $store->fresh();
+
+        $this->assertEquals('something else', $store->get('foo'));
+        $this->assertNotEquals('something else', $newStore->get('foo'));
+        $this->assertNull($store->get('abc'));
+        $this->assertEquals('def', $newStore->get('abc'));
+    }
 }
