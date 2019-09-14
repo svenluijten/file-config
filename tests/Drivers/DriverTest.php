@@ -13,6 +13,8 @@ abstract class DriverTest extends TestCase
      * @param string $title
      * @param string $contents
      * @param array  $config
+     *
+     * @throws \Exception
      */
     public function test_it_can_import_and_export_files(string $title, string $contents, array $config): void
     {
