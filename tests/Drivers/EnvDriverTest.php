@@ -71,6 +71,14 @@ class EnvDriverTest extends DriverTest
                     ['KEY_2' => '"value number two"'],
                 ],
             ],
+            [
+                'Empty values',
+                "FOO=\nHELLO=world\n",
+                [
+                    ['FOO' => ''],
+                    ['HELLO' => 'world'],
+                ],
+            ],
         ];
     }
 

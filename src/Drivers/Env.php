@@ -4,7 +4,7 @@ namespace Sven\FileConfig\Drivers;
 
 class Env implements Driver
 {
-    const REGEX = '/([a-zA-Z0-9_]+)\=(.+)/';
+    const REGEX = '/([a-zA-Z0-9_]+)\=(.+)?/';
 
     /**
      * {@inheritdoc}
@@ -21,7 +21,7 @@ class Env implements Driver
             if ($this->isEmptyLine($part) || $this->isComment($part)) {
                 $result[] = [$part];
             } else {
-                $result[] = [$matches[1] => $matches[2]];
+                $result[] = [$matches[1] => $matches[2] ?? ''];
             }
         }
 
@@ -37,7 +37,7 @@ class Env implements Driver
 
         foreach ($config as $line) {
             foreach ($line as $key => $value) {
-                if ($this->isEmptyLine($value)) {
+                if ($this->isEmptyLine($value, $key)) {
                     $result .= PHP_EOL;
                 } elseif ($this->isComment($value)) {
                     $result .= PHP_EOL.$value;
@@ -50,9 +50,9 @@ class Env implements Driver
         return trim($result, PHP_EOL).PHP_EOL;
     }
 
-    protected function isEmptyLine(string $value): bool
+    protected function isEmptyLine(string $value, $key = null): bool
     {
-        return $value === '';
+        return $value === '' && ! is_string($key);
     }
 
     protected function isComment(string $value): bool
