@@ -15,13 +15,13 @@ class Env implements Driver
 
         $result = [];
 
-        foreach ($parts as $part) {
+        foreach ($parts as $key => $part) {
             preg_match(self::REGEX, $part, $matches);
 
             if ($this->isEmptyLine($part) || $this->isComment($part)) {
-                $result[] = [$part];
+                $result[$key] = $part;
             } else {
-                $result[] = [$matches[1] => $matches[2] ?? ''];
+                $result[$matches[1]] = $matches[2] ?? '';
             }
         }
 
@@ -35,15 +35,13 @@ class Env implements Driver
     {
         $result = '';
 
-        foreach ($config as $line) {
-            foreach ($line as $key => $value) {
-                if ($this->isEmptyLine($value, $key)) {
-                    $result .= PHP_EOL;
-                } elseif ($this->isComment($value)) {
-                    $result .= PHP_EOL.$value;
-                } else {
-                    $result .= PHP_EOL.$key.'='.$value;
-                }
+        foreach ($config as $key => $value) {
+            if ($this->isEmptyLine($value, $key)) {
+                $result .= PHP_EOL;
+            } elseif ($this->isComment($value)) {
+                $result .= PHP_EOL.$value;
+            } else {
+                $result .= PHP_EOL.$key.'='.$value;
             }
         }
 
