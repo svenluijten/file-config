@@ -27,6 +27,11 @@ class Store
         return Arr::get($this->config, $key, $default);
     }
 
+    public function all(): array
+    {
+        return $this->config;
+    }
+
     public function set($key, $value): void
     {
         Arr::set($this->config, $key, $value);

@@ -80,4 +80,20 @@ class StoreTest extends TestCase
         $this->assertNull($store->get('abc'));
         $this->assertEquals('def', $newStore->get('abc'));
     }
+
+    /** @test */
+    public function it_can_get_all_values_from_the_config(): void
+    {
+        $this->create('test.json', '{"foo":"bar","abc":"def"}');
+
+        $file = new File(__DIR__.'/'.self::TEMP_DIRECTORY.'/test.json');
+        $store = new Store($file, new Json());
+
+        $values = $store->all();
+
+        $this->assertArrayHasKey('foo', $values);
+        $this->assertArrayHasKey('abc', $values);
+        $this->assertEquals('bar', $values['foo']);
+        $this->assertEquals('def', $values['abc']);
+    }
 }
