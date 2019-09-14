@@ -5,7 +5,7 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-circleci]][link-circleci]
+[![Build Status][ico-build]][link-build]
 [![StyleCI][ico-styleci]][link-styleci]
 
 This package provides a persistent config store as flat files with an easy
@@ -43,24 +43,28 @@ the package:
 ```
 
 ## Usage
-To get started, create a new store object with an instance of `\Sven\FileConfig\File` (where your 
-configuration file is, and the driver you want to use (we'll use `\Sven\FileConfig\Drivers\Json` 
-in the examples).
+To get started, construct a new instance of `\Sven\FileConfig\Store`, providing it with a `\Sven\FileConfig\File`
+object, and an implementation of the `\Sven\FileConfig\Drivers\Driver` interface. We'll use the pre-installed 
+`Json` driver in the examples.
 
 ```php
 use Sven\FileConfig\File;
 use Sven\FileConfig\Store;
 use Sven\FileConfig\Drivers\Json;
 
-$file = new File('path/to/file.json');
-$config = new Store($file, new Json);
+$file = new File('/path/to/file.json');
+$config = new Store($file, new Json());
 ```
 
 You can interact with your newly created `$config` object via the `get`, `set`, and `delete` 
 methods.
 
 ### Examples
-Let's take a look at some examples:
+Let's take a look at some examples.
+
+#### Getting a value from the file
+To retrieve a value from the configuration file, use the `get` method. Let's assume our (prettified)
+JSON configuration file looks like this:
 
 ```json
 {
@@ -73,40 +77,62 @@ Let's take a look at some examples:
 }
 ```
 
+We can get the entire `database` array:
+
 ```php
 $config->get('database'); 
 // ~> ['name' => 'test', 'host' => 'localhost', 'user' => 'admin', 'password' => root']
+```
 
+... or get only the `database.host` property using dot-notation:
+
+```php
 $config->get('database.host'); 
 // ~> 'localhost'
 ```
 
-```php
-$config->set('database.user', 'admin');
-// ~> true (file was changed)
+If the given key can not be found, `null` is returned by default. You may override this by
+passing a second argument to `get`:
 
-$config->set('does.not', 'exist');
-// ~> true (file was changed)
+```php
+$config->get('database.does_not_exist', 'default');
+// ~> 'default'
 ```
+
+#### Setting a value in the file
+To add or change a value in the configuration file, you may use the `set` method. Note that
+you have to call the `persist` method to write the changes you made to the file. You may also
+use the `refresh` method to re-read the file into memory.
+
+```php
+$config->set('database.user', 'new-username');
+$config->persist();
+
+$config->refresh();
+$config->get('database.user');
+// ~> 'new-username'
+```
+
+The file will end up looking like this after you've called the `persist` method:
 
 ```json
 {
     "database": {
-        ...
-        "user": "admin"
-    },
-    "does": {
-        "not": "exist"
+        "name": "test",
+        "host": "localhost",
+        "user": "new-username",
+        "password": "root"
     }
 }
 ```
 
+#### Deleting an entry from the file
+To remove one of the configuration options from the file, use the `delete` method. Again, don't forget
+to call `persist` to write the new contents to the file!
+
 ```php
 $config->delete('database.user');
-// ~> true (file was changed)
-
-$config->delete('does.not');
-// ~> true (file was changed)
+$config->persist();
 ```
 
 ```json
@@ -119,20 +145,18 @@ $config->delete('does.not');
 }
 ```
 
-> **NOTE:** It is up to the developer to make sure this value should immediately be
-persisted, this package is "destructive" by default.
-
 ## Writing your own driver
 You may want to use a file format for your configuration that's not (yet) included in
 this package. Thankfully, writing a driver is as straightforward as turning your file's
 contents into a PHP array.
 
-To create a driver, make a class that implements the `\Sven\FileConfig\Drivers\Driver`
-interface. After that, add 2 methods to your class: `import` and `export`. The `import`
-method will receive the contents of the file as an argument, and it's up to you to return
-a PHP arrayhere . The `export` method is the exact reverse: it receives a regular PHP array,
-and you should ensure it's turned back into your desired file format again. To see how this
-works in more detail, take a look at [the `json` driver](src/Drivers/Json.php). 
+To create a driver, create a class that implements the `\Sven\FileConfig\Drivers\Driver`
+interface. Then add 2 methods to your class: `import` and `export`. The `import` method
+will receive the contents of the file as an argument, and expects a PHP array to be returned.
+
+The `export` method is the exact reverse: it receives a PHP array, and expects the new contents
+of the file to be returned (as a string). To see how this works in more detail, take a look at 
+[the pre-installed `json` driver](src/Drivers/Json.php).
 
 ## Contributing
 All contributions (pull requests, issues and feature requests) are
@@ -146,10 +170,10 @@ though. See the [contributors page](../../graphs/contributors) for all contribut
 [ico-version]: https://img.shields.io/packagist/v/sven/file-config.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-green.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/sven/file-config.svg?style=flat-square
-[ico-circleci]: https://img.shields.io/circleci/project/github/svenluijten/file-config.svg?style=flat-square
+[ico-build]: https://img.shields.io/travis/svenluijten/file-config?style=flat-square
 [ico-styleci]: https://styleci.io/repos/117891803/shield
 
 [link-packagist]: https://packagist.org/packages/sven/file-config
 [link-downloads]: https://packagist.org/packages/sven/file-config
-[link-circleci]: https://circleci.com/gh/svenluijten/file-config
+[link-build]: https://travis-ci.org/svenluijten/file-config
 [link-styleci]: https://styleci.io/repos/117891803
