@@ -2,6 +2,7 @@
 
 namespace Sven\FileConfig\Tests\Drivers;
 
+use Sven\FileConfig\Drivers\Driver;
 use Sven\FileConfig\Drivers\Json;
 
 class JsonDriverTest extends DriverTest
@@ -9,9 +10,14 @@ class JsonDriverTest extends DriverTest
     public function files(): array
     {
         return [
-            [new Json, '{}', []],
-            [new Json, '{"one":"two"}', ['one' => 'two']],
-            [new Json, '{"one":{"two":{"three":{"0":"four","1":"five","2":"six"}}}}', ['one' => ['two' => ['three' => ['four', 'five', 'six']]]]],
+            ['{}', []],
+            ['{"one":"two"}', ['one' => 'two']],
+            ['{"one":{"two":{"three":{"0":"four","1":"five","2":"six"}}}}', ['one' => ['two' => ['three' => ['four', 'five', 'six']]]]],
         ];
+    }
+
+    protected function driver(): Driver
+    {
+        return new Json();
     }
 }
