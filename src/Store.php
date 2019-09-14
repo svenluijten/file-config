@@ -6,25 +6,15 @@ use Sven\FileConfig\Drivers\Driver;
 
 class Store
 {
-    /**
-     * @var \Sven\FileConfig\File
-     */
+    /** @var \Sven\FileConfig\File */
     protected $file;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $config;
 
-    /**
-     * @var \Sven\FileConfig\Drivers\Driver
-     */
+    /** @var \Sven\FileConfig\Drivers\Driver */
     protected $driver;
 
-    /**
-     * @param \Sven\FileConfig\File           $file
-     * @param \Sven\FileConfig\Drivers\Driver $driver
-     */
     public function __construct(File $file, Driver $driver)
     {
         $this->file = $file;
