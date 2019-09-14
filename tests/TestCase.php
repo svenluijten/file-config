@@ -5,11 +5,10 @@ namespace Sven\FileConfig\Tests;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use PHPUnit\Framework\TestCase as BaseTestCase;
-use Sven\FileConfig\File;
 
 abstract class TestCase extends BaseTestCase
 {
-    private const TEMP_DIRECTORY = 'temp';
+    protected const TEMP_DIRECTORY = 'temp';
 
     /**
      * {@inheritdoc}
@@ -39,21 +38,13 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * @param string $path
-     *
-     * @return \Sven\FileConfig\File
-     */
-    protected function file(string $path): File
-    {
-        return new File(__DIR__.DIRECTORY_SEPARATOR.self::TEMP_DIRECTORY.DIRECTORY_SEPARATOR.$path);
-    }
-
-    /**
-     * @param string $path
      * @param string $contents
      *
      * @return bool
+     *
+     * @throws \League\Flysystem\FileExistsException
      */
-    protected function create($path, $contents = ''): bool
+    protected function create(string $path, string $contents = ''): bool
     {
         return $this->filesystem()->write(
             self::TEMP_DIRECTORY.DIRECTORY_SEPARATOR.$path, $contents
