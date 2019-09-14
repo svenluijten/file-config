@@ -40,9 +40,9 @@ abstract class TestCase extends BaseTestCase
      * @param string $path
      * @param string $contents
      *
-     * @return bool
-     *
      * @throws \League\Flysystem\FileExistsException
+     *
+     * @return bool
      */
     protected function create(string $path, string $contents = ''): bool
     {

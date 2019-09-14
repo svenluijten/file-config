@@ -7,7 +7,7 @@ class Env implements Driver
     const REGEX = '/([a-zA-Z0-9_]+)\=(.+)/';
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function import(string $contents): array
     {
@@ -29,7 +29,7 @@ class Env implements Driver
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function export(array $config): string
     {

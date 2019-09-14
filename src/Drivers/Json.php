@@ -5,7 +5,7 @@ namespace Sven\FileConfig\Drivers;
 class Json implements Driver
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function import(string $contents): array
     {
@@ -13,7 +13,7 @@ class Json implements Driver
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function export(array $config): string
     {
