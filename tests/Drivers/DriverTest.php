@@ -10,22 +10,29 @@ abstract class DriverTest extends TestCase
     /**
      * @dataProvider files
      *
-     * @param string                          $contents
-     * @param array                           $config
+     * @param string $title
+     * @param string $contents
+     * @param array  $config
      */
-    public function test_it_can_import_and_export_files(string $contents, array $config): void
+    public function test_it_can_import_and_export_files(string $title, string $contents, array $config): void
     {
-        $imported = $this->driver()->import($contents);
-        $exported = $this->driver()->export($config);
+        $this->assertEquals(
+            $config,
+            $this->driver()->import($contents),
+            'Failed converting test case "'.$title.'" into an array (importing).'
+        );
 
-        $this->assertEquals($config, $imported);
-        $this->assertEquals($contents, $exported);
+        $this->assertEquals(
+            $contents,
+            $this->driver()->export($config),
+            'Failed converting test case "'.$title.'" back into a string (exporting).'
+        );
     }
 
     /**
-     * This data provider should return the driver to be used,
-     * the original contents of the file, and the expected
-     * PHP array, in that order.
+     * This data provider should return the title of the test
+     * case the original contents of the file, and then the
+     * expected PHP array, in that order.
      *
      * @return array
      *

@@ -10,9 +10,21 @@ class JsonDriverTest extends DriverTest
     public function files(): array
     {
         return [
-            ['{}', []],
-            ['{"one":"two"}', ['one' => 'two']],
-            ['{"one":{"two":{"three":{"0":"four","1":"five","2":"six"}}}}', ['one' => ['two' => ['three' => ['four', 'five', 'six']]]]],
+            [
+                'Empty file',
+                '{}',
+                [],
+            ],
+            [
+                'A single value',
+                '{"one":"two"}',
+                ['one' => 'two'],
+            ],
+            [
+                'Multidimensional array',
+                '{"one":{"two":{"three":{"0":"four","1":"five","2":"six"}}}}',
+                ['one' => ['two' => ['three' => ['four', 'five', 'six']]]],
+            ],
         ];
     }
 
