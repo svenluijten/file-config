@@ -5,9 +5,10 @@
     "config",
     "file",
     "flatfile",
+    "flat",
     "configuration",
-    "flysystem",
-    "json"
+    "json",
+    "env"
   ],
   "license": "MIT",
   "authors": [
