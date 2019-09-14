@@ -2,8 +2,8 @@
 
 namespace Sven\FileConfig\Tests\Drivers;
 
+use PHPUnit\Framework\TestCase;
 use Sven\FileConfig\Drivers\Driver;
-use Sven\FileConfig\Tests\TestCase;
 
 abstract class DriverTest extends TestCase
 {
