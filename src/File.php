@@ -9,7 +9,7 @@ class File
 
     public function __construct(string $path)
     {
-        if (! is_file($path)) {
+        if (!is_file($path)) {
             throw new \RuntimeException('File not found at "'.$path.'".');
         }
 
