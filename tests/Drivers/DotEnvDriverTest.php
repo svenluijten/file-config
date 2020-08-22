@@ -2,8 +2,8 @@
 
 namespace Sven\FileConfig\Tests\Drivers;
 
-use Sven\FileConfig\Drivers\Driver;
 use Sven\FileConfig\Drivers\DotEnv;
+use Sven\FileConfig\Drivers\Driver;
 
 class DotEnvDriverTest extends DriverTest
 {
