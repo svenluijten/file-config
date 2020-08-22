@@ -50,7 +50,7 @@ class Env implements Driver
 
     protected function isEmptyLine(string $value, $key = null): bool
     {
-        return $value === '' && ! is_string($key);
+        return $value === '' && !is_string($key);
     }
 
     protected function isComment(string $value): bool
