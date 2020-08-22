@@ -2,6 +2,9 @@
 
 namespace Sven\FileConfig\Drivers;
 
+/**
+ * @deprecated
+ */
 class Env implements Driver
 {
     const REGEX = '/([a-zA-Z0-9_]+)\=(.+)?/';

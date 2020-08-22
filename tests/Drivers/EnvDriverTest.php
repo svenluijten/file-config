@@ -5,6 +5,9 @@ namespace Sven\FileConfig\Tests\Drivers;
 use Sven\FileConfig\Drivers\Driver;
 use Sven\FileConfig\Drivers\Env;
 
+/**
+ * @deprecated
+ */
 class EnvDriverTest extends DriverTest
 {
     public function files(): array
