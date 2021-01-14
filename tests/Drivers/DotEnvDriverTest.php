@@ -12,14 +12,14 @@ class DotEnvDriverTest extends DriverTest
         return [
             [
                 'One simple value',
-                "FOO=bar\n",
+                'FOO=bar'.PHP_EOL,
                 [
                     'FOO' => 'bar',
                 ],
             ],
             [
                 'Multiple values in one file',
-                "FOO=bar\nBAZ=qux\n",
+                'FOO=bar'.PHP_EOL.'BAZ=qux'.PHP_EOL,
                 [
                     'FOO' => 'bar',
                     'BAZ' => 'qux',
@@ -27,14 +27,14 @@ class DotEnvDriverTest extends DriverTest
             ],
             [
                 'A single comment',
-                "# A comment\n",
+                '# A comment'.PHP_EOL,
                 [
                     '# A comment',
                 ],
             ],
             [
                 'A comment between two values',
-                "HELLO=world\n# A comment\nGOODBYE=world\n",
+                'HELLO=world'.PHP_EOL.'# A comment'.PHP_EOL.'GOODBYE=world'.PHP_EOL,
                 [
                     'HELLO' => 'world',
                     1 => '# A comment',
@@ -43,7 +43,7 @@ class DotEnvDriverTest extends DriverTest
             ],
             [
                 'Multiple newlines between values',
-                "FOO=bar\nABC=xyz\n\nGHI=jkl\n",
+                'FOO=bar'.PHP_EOL.'ABC=xyz'.PHP_EOL.PHP_EOL.'GHI=jkl'.PHP_EOL,
                 [
                     'FOO' => 'bar',
                     'ABC' => 'xyz',
@@ -53,7 +53,7 @@ class DotEnvDriverTest extends DriverTest
             ],
             [
                 'Numeric keys',
-                "FOO=bar\n# A comment\nKEY=value\n\n# Second comment\nKEY_2=\"value number two\"\n",
+                'FOO=bar'.PHP_EOL.'# A comment'.PHP_EOL.'KEY=value'.PHP_EOL.PHP_EOL.'# Second comment'.PHP_EOL.'KEY_2="value number two"'.PHP_EOL,
                 [
                     'FOO' => 'bar',
                     1 => '# A comment',
@@ -65,7 +65,7 @@ class DotEnvDriverTest extends DriverTest
             ],
             [
                 'Empty values',
-                "FOO=\nHELLO=world\n",
+                'FOO='.PHP_EOL.'HELLO=world'.PHP_EOL,
                 [
                     'FOO' => '',
                     'HELLO' => 'world',
@@ -73,7 +73,7 @@ class DotEnvDriverTest extends DriverTest
             ],
             [
                 'Quote weird characters',
-                "FOO=\"^&!*-)'(>,<cxG+\"\nBLAH=\"blah blah blah\"\n",
+                'FOO="^&!*-)\'(>,<cxG+"'.PHP_EOL.'BLAH="blah blah blah"'.PHP_EOL,
                 [
                     'FOO' => '^&!*-)\'(>,<cxG+',
                     'BLAH' => 'blah blah blah',
