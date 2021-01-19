@@ -2,13 +2,10 @@
 
 namespace Sven\FileConfig\Tests\Drivers;
 
+use Sven\FileConfig\Drivers\DotEnv;
 use Sven\FileConfig\Drivers\Driver;
-use Sven\FileConfig\Drivers\Env;
 
-/**
- * @deprecated
- */
-class EnvDriverTest extends DriverTest
+class DotEnvDriverTest extends DriverTest
 {
     public function files(): array
     {
@@ -25,14 +22,6 @@ class EnvDriverTest extends DriverTest
                 'FOO=bar'.PHP_EOL.'BAZ=qux'.PHP_EOL,
                 [
                     'FOO' => 'bar',
-                    'BAZ' => 'qux',
-                ],
-            ],
-            [
-                'Quoted values',
-                'FOO="bar"'.PHP_EOL.'BAZ=qux'.PHP_EOL,
-                [
-                    'FOO' => '"bar"',
                     'BAZ' => 'qux',
                 ],
             ],
@@ -71,7 +60,7 @@ class EnvDriverTest extends DriverTest
                     'KEY' => 'value',
                     3 => '',
                     4 => '# Second comment',
-                    'KEY_2' => '"value number two"',
+                    'KEY_2' => 'value number two',
                 ],
             ],
             [
@@ -82,11 +71,19 @@ class EnvDriverTest extends DriverTest
                     'HELLO' => 'world',
                 ],
             ],
+            [
+                'Quote weird characters',
+                'FOO="^&!*-)\'(>,<cxG+"'.PHP_EOL.'BLAH="blah blah blah"'.PHP_EOL,
+                [
+                    'FOO' => '^&!*-)\'(>,<cxG+',
+                    'BLAH' => 'blah blah blah',
+                ],
+            ],
         ];
     }
 
     protected function driver(): Driver
     {
-        return new Env();
+        return new DotEnv();
     }
 }

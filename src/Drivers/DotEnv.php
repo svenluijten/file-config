@@ -2,13 +2,8 @@
 
 namespace Sven\FileConfig\Drivers;
 
-/**
- * @deprecated
- */
-class Env implements Driver
+class DotEnv implements Driver
 {
-    const REGEX = '/([a-zA-Z0-9_]+)\=(.+)?/';
-
     /**
      * {@inheritdoc}
      */
@@ -19,12 +14,18 @@ class Env implements Driver
         $result = [];
 
         foreach ($parts as $key => $part) {
-            preg_match(self::REGEX, $part, $matches);
+            // [
+            //     0 => 'FOO="bar"',
+            //     1 => 'FOO',
+            //     2 => '"',
+            //     3 => 'bar',
+            // ]
+            preg_match('/(\w+)=([\"\']?)(.*)\2/', $part, $matches);
 
             if ($this->isEmptyLine($part) || $this->isComment($part)) {
                 $result[$key] = $part;
             } else {
-                $result[$matches[1]] = $matches[2] ?? '';
+                $result[$matches[1]] = $matches[3];
             }
         }
 
@@ -44,7 +45,7 @@ class Env implements Driver
             } elseif ($this->isComment($value)) {
                 $result .= PHP_EOL.$value;
             } else {
-                $result .= PHP_EOL.$key.'='.$value;
+                $result .= PHP_EOL.$key.'='.$this->quoteIfNecessary($value);
             }
         }
 
@@ -58,6 +59,18 @@ class Env implements Driver
 
     protected function isComment(string $value): bool
     {
-        return mb_substr($value, 0, 1) === '#';
+        return mb_strpos($value, '#') === 0;
+    }
+
+    protected function quoteIfNecessary(string $value): string
+    {
+        // If the string contains anything that is not a
+        // regular "word" like special characters or
+        // spaces, we quote the value and return.
+        if (preg_match('/[\W]/', $value) === 1) {
+            return '"'.$value.'"';
+        }
+
+        return $value;
     }
 }

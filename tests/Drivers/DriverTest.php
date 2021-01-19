@@ -33,12 +33,12 @@ abstract class DriverTest extends TestCase
 
     /**
      * This data provider should return the title of the test
-     * case the original contents of the file, and then the
-     * expected PHP array, in that order.
-     *
-     * @return array
+     * case, the original contents of the file, and then
+     * the expected PHP array, in that order.
      *
      * @see \Sven\FileConfig\Tests\Drivers\JsonDriverTest::files
+     *
+     * @return array
      */
     abstract public function files(): array;
 
