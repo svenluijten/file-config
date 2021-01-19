@@ -15,9 +15,11 @@ stored in userland, or somewhere the user is allowed to edit it manually.
 ## Index
 - [Installation](#installation)
   - [Downloading](#downloading)
+- [Available drivers](#available-drivers)
 - [Usage](#usage)
   - [Examples](#examples)
 - [Contributing](#contributing)
+- [Writing your own driver](#writing-your-own-driver)
 - [License](#license)
 
 ## Installation
@@ -27,7 +29,7 @@ You'll have to follow a couple of simple steps to install this package.
 Via [composer](http://getcomposer.org):
 
 ```bash
-$ composer require sven/file-config
+$ composer require sven/file-config:^3.1
 ```
 
 Or add the package to your dependencies in `composer.json` and run
@@ -37,10 +39,18 @@ the package:
 ```json
 {
     "require": {
-        "sven/file-config": "^3.0"
+        "sven/file-config": "^3.1"
     }
 }
 ```
+
+## Available drivers
+- [`Json`](./src/Drivers/Json.php) - For `.json` files.
+- [`DotEnv`](./src/Drivers/DotEnv.php) - For `.env` files.
+- [`Env` (deprecated)](./src/Drivers/Env.php)
+
+You can also write your own driver to use in your own applications. To write your
+own, read [writing your own driver](#writing-your-own-driver) in this document.
 
 ## Usage
 To get started, construct a new instance of `\Sven\FileConfig\Store`, providing it with a `\Sven\FileConfig\File`
