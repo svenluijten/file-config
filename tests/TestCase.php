@@ -40,9 +40,9 @@ abstract class TestCase extends BaseTestCase
      * @param string $path
      * @param string $contents
      *
-     * @return void
      * @throws \League\Flysystem\FilesystemException
      *
+     * @return void
      */
     protected function create(string $path, string $contents = ''): void
     {
