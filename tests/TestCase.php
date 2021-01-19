@@ -2,8 +2,8 @@
 
 namespace Sven\FileConfig\Tests;
 
-use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -15,7 +15,7 @@ abstract class TestCase extends BaseTestCase
      */
     public function setUp(): void
     {
-        $this->filesystem()->createDir(self::TEMP_DIRECTORY);
+        $this->filesystem()->createDirectory(self::TEMP_DIRECTORY);
     }
 
     /**
@@ -23,7 +23,7 @@ abstract class TestCase extends BaseTestCase
      */
     public function tearDown(): void
     {
-        $this->filesystem()->deleteDir(self::TEMP_DIRECTORY);
+        $this->filesystem()->deleteDirectory(self::TEMP_DIRECTORY);
     }
 
     /**
@@ -31,7 +31,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function filesystem(): Filesystem
     {
-        $adapter = new Local(__DIR__);
+        $adapter = new LocalFilesystemAdapter(__DIR__);
 
         return new Filesystem($adapter);
     }
@@ -40,13 +40,13 @@ abstract class TestCase extends BaseTestCase
      * @param string $path
      * @param string $contents
      *
-     * @throws \League\Flysystem\FileExistsException
+     * @throws \League\Flysystem\FilesystemException
      *
-     * @return bool
+     * @return void
      */
-    protected function create(string $path, string $contents = ''): bool
+    protected function create(string $path, string $contents = ''): void
     {
-        return $this->filesystem()->write(
+        $this->filesystem()->write(
             self::TEMP_DIRECTORY.DIRECTORY_SEPARATOR.$path, $contents
         );
     }
