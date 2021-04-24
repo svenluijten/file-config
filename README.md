@@ -12,16 +12,6 @@ This package provides a persistent config store as flat files with an easy
 to use and understand API. This is perfect if the config file should be 
 stored in userland, or somewhere the user is allowed to edit it manually.
 
-## Index
-- [Installation](#installation)
-  - [Downloading](#downloading)
-- [Available drivers](#available-drivers)
-- [Usage](#usage)
-  - [Examples](#examples)
-- [Contributing](#contributing)
-- [Writing your own driver](#writing-your-own-driver)
-- [License](#license)
-
 ## Installation
 You'll have to follow a couple of simple steps to install this package.
 
