@@ -12,10 +12,9 @@ use ArrayAccess;
 class Arr
 {
     /**
-     * @param \ArrayAccess|array $array
-     * @param string             $key
-     * @param mixed              $default
-     *
+     * @param  \ArrayAccess|array  $array
+     * @param  string  $key
+     * @param  mixed  $default
      * @return mixed
      */
     public static function get($array, $key, $default = null)
@@ -48,10 +47,9 @@ class Arr
     }
 
     /**
-     * @param array  $array
-     * @param string $key
-     * @param mixed  $value
-     *
+     * @param  array  $array
+     * @param  string  $key
+     * @param  mixed  $value
      * @return array
      */
     public static function set(&$array, $key, $value)
@@ -81,9 +79,8 @@ class Arr
     }
 
     /**
-     * @param array        $array
-     * @param array|string $keys
-     *
+     * @param  array  $array
+     * @param  array|string  $keys
      * @return void
      */
     public static function forget(&$array, $keys)
@@ -122,8 +119,7 @@ class Arr
     }
 
     /**
-     * @param mixed $value
-     *
+     * @param  mixed  $value
      * @return bool
      */
     public static function accessible($value): bool
@@ -132,9 +128,8 @@ class Arr
     }
 
     /**
-     * @param \ArrayAccess|array $array
-     * @param string|int         $key
-     *
+     * @param  \ArrayAccess|array  $array
+     * @param  string|int  $key
      * @return bool
      */
     public static function exists($array, $key): bool
