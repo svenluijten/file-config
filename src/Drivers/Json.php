@@ -9,7 +9,7 @@ class Json implements Driver
      */
     public function import(string $contents): array
     {
-        return json_decode($contents, true);
+        return json_decode($contents, associative: true, flags: JSON_THROW_ON_ERROR);
     }
 
     /**
@@ -17,6 +17,6 @@ class Json implements Driver
      */
     public function export(array $config): string
     {
-        return json_encode($config, JSON_FORCE_OBJECT | JSON_OBJECT_AS_ARRAY);
+        return json_encode($config, flags: JSON_THROW_ON_ERROR | JSON_FORCE_OBJECT | JSON_OBJECT_AS_ARRAY);
     }
 }

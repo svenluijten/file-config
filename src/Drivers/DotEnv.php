@@ -59,7 +59,7 @@ class DotEnv implements Driver
 
     protected function isComment(string $value): bool
     {
-        return mb_strpos($value, '#') === 0;
+        return str_starts_with($value, '#');
     }
 
     protected function quoteIfNecessary(string $value): string
