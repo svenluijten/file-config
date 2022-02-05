@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
     phpunit:
-        name: PHP ${{ matrix.os }}, ${{ matrix.php }} (${{ matrix.composer_flags }})
+        name: PHP ${{ matrix.php }} - ${{ matrix.dependency-version }} on ${{ matrix.os }}
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
