@@ -10,9 +10,9 @@ abstract class DriverTest extends TestCase
     /**
      * @dataProvider files
      *
-     * @param string $title
-     * @param string $contents
-     * @param array  $config
+     * @param  string  $title
+     * @param  string  $contents
+     * @param  array  $config
      *
      * @throws \Exception
      */
