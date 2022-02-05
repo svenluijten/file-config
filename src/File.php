@@ -4,8 +4,7 @@ namespace Sven\FileConfig;
 
 class File
 {
-    /** @var string */
-    protected $path;
+    protected string $path;
 
     public function __construct(string $path)
     {

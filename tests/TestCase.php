@@ -10,25 +10,16 @@ abstract class TestCase extends BaseTestCase
 {
     protected const TEMP_DIRECTORY = 'temp';
 
-    /**
-     * {@inheritdoc}
-     */
     public function setUp(): void
     {
         $this->filesystem()->createDirectory(self::TEMP_DIRECTORY);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function tearDown(): void
     {
         $this->filesystem()->deleteDirectory(self::TEMP_DIRECTORY);
     }
 
-    /**
-     * @return \League\Flysystem\Filesystem
-     */
     protected function filesystem(): Filesystem
     {
         $adapter = new LocalFilesystemAdapter(__DIR__);

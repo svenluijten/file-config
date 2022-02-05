@@ -1,5 +1,5 @@
-name: Tests (PHP)
-on: [push, pull_request]
+name: Tests
+on: [push]
 
 jobs:
     phpunit:
@@ -7,9 +7,9 @@ jobs:
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
-                php: [7.3, 7.4]
+                php: [8.0, 8.1]
                 os: [ubuntu-latest, windows-latest]
-                composer_flags: ['--prefer-lowest --prefer-stable', '--prefer-stable']
+                dependency-version: [lowest, highest]
         steps:
             - uses: actions/checkout@v2.4.0
 
@@ -20,8 +20,11 @@ jobs:
                   extensions: mbstring, fileinfo
                   coverage: none
 
-            - name: Install Composer dependencies
-              run: composer update --no-interaction --no-ansi --prefer-dist ${{ matrix.composer_flags }}
+            - name: Install dependencies
+              uses: ramsey/composer-install@v1
+              with:
+                  dependency-versions: ${{ matrix.dependency-version }}
+                  composer-options: "--prefer-dist"
 
             - name: Execute tests
               run: vendor/bin/phpunit
