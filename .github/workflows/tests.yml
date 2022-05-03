@@ -11,7 +11,7 @@ jobs:
                 os: [ubuntu-latest, windows-latest]
                 dependency-version: [lowest, highest]
         steps:
-            - uses: actions/checkout@v2.4.0
+            - uses: actions/checkout@v3.0.2
 
             - name: Configure PHP
               uses: shivammathur/setup-php@v2
