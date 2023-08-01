@@ -171,10 +171,10 @@ though. See the [contributors page](../../graphs/contributors) for all contribut
 [ico-version]: https://img.shields.io/packagist/v/sven/file-config.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-green.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/sven/file-config.svg?style=flat-square
-[ico-build]: https://img.shields.io/github/workflow/status/svenluijten/file-config/Tests%20(PHP)?style=flat-square
+[ico-build]: https://img.shields.io/github/actions/workflow/status/svenluijten/file-config/tests.yml?style=flat-square
 [ico-styleci]: https://styleci.io/repos/117891803/shield
 
 [link-packagist]: https://packagist.org/packages/sven/file-config
 [link-downloads]: https://packagist.org/packages/sven/file-config
-[link-build]: https://github.com/svenluijten/file-config/actions?query=workflow%3A%22Tests+%28PHP%29%22
+[link-build]: https://github.com/svenluijten/file-config/actions/workflows/tests.yml
 [link-styleci]: https://styleci.io/repos/117891803
