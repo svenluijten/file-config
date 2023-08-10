@@ -37,8 +37,8 @@ abstract class DriverTestCase extends TestCase
      * the expected PHP array, in that order.
      *
      * @return array
-     * @see \Sven\FileConfig\Tests\Drivers\JsonDriverTestCase::files
      *
+     * @see \Sven\FileConfig\Tests\Drivers\JsonDriverTestCase::files
      */
     abstract public static function files(): array;
 
