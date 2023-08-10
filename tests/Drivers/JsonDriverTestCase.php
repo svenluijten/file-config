@@ -5,7 +5,7 @@ namespace Sven\FileConfig\Tests\Drivers;
 use Sven\FileConfig\Drivers\Driver;
 use Sven\FileConfig\Drivers\Json;
 
-class JsonDriverTest extends DriverTest
+class JsonDriverTestCase extends DriverTestCase
 {
     public static function files(): array
     {

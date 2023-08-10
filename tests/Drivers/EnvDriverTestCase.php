@@ -8,7 +8,7 @@ use Sven\FileConfig\Drivers\Env;
 /**
  * @deprecated
  */
-class EnvDriverTest extends DriverTest
+class EnvDriverTestCase extends DriverTestCase
 {
     public static function files(): array
     {
