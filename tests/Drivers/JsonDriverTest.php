@@ -7,7 +7,7 @@ use Sven\FileConfig\Drivers\Json;
 
 class JsonDriverTest extends DriverTest
 {
-    public function files(): array
+    public static function files(): array
     {
         return [
             [

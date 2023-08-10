@@ -10,7 +10,7 @@ use Sven\FileConfig\Drivers\Env;
  */
 class EnvDriverTest extends DriverTest
 {
-    public function files(): array
+    public static function files(): array
     {
         return [
             [

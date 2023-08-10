@@ -40,7 +40,7 @@ abstract class DriverTest extends TestCase
      *
      * @return array
      */
-    abstract public function files(): array;
+    abstract public static function files(): array;
 
     abstract protected function driver(): Driver;
 }

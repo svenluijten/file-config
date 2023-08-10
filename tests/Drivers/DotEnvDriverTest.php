@@ -7,7 +7,7 @@ use Sven\FileConfig\Drivers\Driver;
 
 class DotEnvDriverTest extends DriverTest
 {
-    public function files(): array
+    public static function files(): array
     {
         return [
             [
