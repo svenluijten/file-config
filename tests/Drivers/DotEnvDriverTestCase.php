@@ -5,9 +5,9 @@ namespace Sven\FileConfig\Tests\Drivers;
 use Sven\FileConfig\Drivers\DotEnv;
 use Sven\FileConfig\Drivers\Driver;
 
-class DotEnvDriverTest extends DriverTest
+class DotEnvDriverTestCase extends DriverTestCase
 {
-    public function files(): array
+    public static function files(): array
     {
         return [
             [

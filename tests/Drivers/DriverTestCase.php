@@ -5,7 +5,7 @@ namespace Sven\FileConfig\Tests\Drivers;
 use PHPUnit\Framework\TestCase;
 use Sven\FileConfig\Drivers\Driver;
 
-abstract class DriverTest extends TestCase
+abstract class DriverTestCase extends TestCase
 {
     /**
      * @dataProvider files
@@ -36,11 +36,11 @@ abstract class DriverTest extends TestCase
      * case, the original contents of the file, and then
      * the expected PHP array, in that order.
      *
-     * @see \Sven\FileConfig\Tests\Drivers\JsonDriverTest::files
-     *
      * @return array
+     * @see \Sven\FileConfig\Tests\Drivers\JsonDriverTestCase::files
+     *
      */
-    abstract public function files(): array;
+    abstract public static function files(): array;
 
     abstract protected function driver(): Driver;
 }
