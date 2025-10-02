@@ -3,6 +3,7 @@
 namespace Sven\FileConfig;
 
 use Sven\FileConfig\Drivers\Driver;
+use Sven\FileConfig\Exceptions\KeyNotFoundException;
 
 class Store
 {
@@ -16,6 +17,15 @@ class Store
     public function get($key, $default = null)
     {
         return Arr::get($this->config, $key, $default);
+    }
+
+    public function getOrFail($key)
+    {
+        if (Arr::exists($this->config, $key) === false) {
+            throw new KeyNotFoundException();
+        }
+
+        return $this->get($key);
     }
 
     public function all(): array
