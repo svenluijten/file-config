@@ -11,13 +11,7 @@ use ArrayAccess;
  */
 class Arr
 {
-    /**
-     * @param  \ArrayAccess|array  $array
-     * @param  string  $key
-     * @param  mixed  $default
-     * @return mixed
-     */
-    public static function get($array, $key, $default = null)
+    public static function get(ArrayAccess|array $array, string $key, mixed $default = null): mixed
     {
         if (!static::accessible($array)) {
             return $default;
@@ -46,13 +40,7 @@ class Arr
         return $array;
     }
 
-    /**
-     * @param  array  $array
-     * @param  string  $key
-     * @param  mixed  $value
-     * @return array
-     */
-    public static function set(&$array, $key, $value)
+    public static function set(array &$array, string $key, mixed $value): array
     {
         if ($key === null) {
             return $array = $value;
@@ -78,12 +66,7 @@ class Arr
         return $array;
     }
 
-    /**
-     * @param  array  $array
-     * @param  array|string  $keys
-     * @return void
-     */
-    public static function forget(&$array, $keys)
+    public static function forget(array &$array, array|string $keys): void
     {
         $original = &$array;
 
@@ -118,21 +101,12 @@ class Arr
         }
     }
 
-    /**
-     * @param  mixed  $value
-     * @return bool
-     */
-    public static function accessible($value): bool
+    public static function accessible(mixed $value): bool
     {
         return is_array($value) || $value instanceof ArrayAccess;
     }
 
-    /**
-     * @param  \ArrayAccess|array  $array
-     * @param  string|int  $key
-     * @return bool
-     */
-    public static function exists($array, $key): bool
+    public static function exists(ArrayAccess|array $array, string|int $key): bool
     {
         if ($array instanceof ArrayAccess) {
             return $array->offsetExists($key);
