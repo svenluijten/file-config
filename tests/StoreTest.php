@@ -96,4 +96,14 @@ class StoreTest extends TestCase
         $this->assertEquals('bar', $values['foo']);
         $this->assertEquals('def', $values['abc']);
     }
+
+    /** @test */
+    public function it_allows_construction_from_string(): void
+    {
+        $this->create('test.json', '{"foo":"bar"}');
+
+        $store = new Store(__DIR__.'/'.self::TEMP_DIRECTORY.'/test.json', new Json());
+
+        $this->assertEquals('bar', $store->get('foo'));
+    }
 }

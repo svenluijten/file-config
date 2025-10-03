@@ -7,10 +7,13 @@ use Sven\FileConfig\Drivers\Driver;
 class Store
 {
     protected array $config;
+    protected File $file;
 
-    public function __construct(protected File $file, protected Driver $driver)
+    public function __construct(string|File $file, protected Driver $driver)
     {
-        $this->config = $driver->import($file->contents());
+        $this->file = is_string($file) ? new File($file) : $file;
+
+        $this->config = $driver->import($this->file->contents());
     }
 
     public function get($key, $default = null)
