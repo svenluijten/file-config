@@ -48,12 +48,10 @@ object, and an implementation of the `\Sven\FileConfig\Drivers\Driver` interface
 `Json` driver in the examples.
 
 ```php
-use Sven\FileConfig\File;
 use Sven\FileConfig\Store;
 use Sven\FileConfig\Drivers\Json;
 
-$file = new File('/path/to/file.json');
-$config = new Store($file, new Json());
+$config = new Store('/path/to/file.json', new Json());
 ```
 
 You can interact with your newly created `$config` object via the `get`, `set`, and `delete` 
