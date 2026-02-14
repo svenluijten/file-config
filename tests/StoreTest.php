@@ -3,6 +3,7 @@
 namespace Sven\FileConfig\Tests;
 
 use Sven\FileConfig\Drivers\Json;
+use Sven\FileConfig\Exceptions\KeyNotFoundException;
 use Sven\FileConfig\File;
 use Sven\FileConfig\Store;
 
@@ -95,6 +96,19 @@ class StoreTest extends TestCase
         $this->assertArrayHasKey('abc', $values);
         $this->assertEquals('bar', $values['foo']);
         $this->assertEquals('def', $values['abc']);
+    }
+
+    /** @test */
+    public function it_throws_when_getting_a_key_which_doesnt_exist(): void
+    {
+        $this->create('test.json', '{}');
+
+        $file = new File(__DIR__.'/'.self::TEMP_DIRECTORY.'/test.json');
+        $store = new Store($file, new Json());
+
+        $this->expectException(KeyNotFoundException::class);
+
+        $store->getOrFail('foo');
     }
 
     /** @test */
